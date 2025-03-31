@@ -53,10 +53,10 @@ install_dep()
 {
     tiff_root=$1/tiff-3.9.2
     mkdir -p "$2/libtiff" > /dev/null
-    cp -f "$tiff_root/libtiff/tiff.h" "$2/libtiff/"
-    cp -f "$tiff_root/libtiff/tiffio.h" "$2/libtiff/"
-    cp -f "$tiff_root/libtiff/tiffvers.h" "$2/libtiff/"
-    cp -f "$tiff_root/libtiff/tiffconf.h" "$2/libtiff/"
-    cp -f "$tiff_root/libtiff/.libs/libtiff.a" "$2"
+    cp -f "$tiff_root/libtiff/tiff.h" "$2/"
+    cp -f "$tiff_root/libtiff/tiffio.h" "$2/"
+    cp -f "$tiff_root/libtiff/tiffvers.h" "$2/"
+    cp -f "$tiff_root/libtiff/tiffconf.h" "$2/"
+    cp -f "$tiff_root/libtiff/.libs/libtiff.a" "$2/"
     return 0
 }

@@ -42,5 +42,7 @@ install_dep()
     libpng_root=$1/libpng-1.6.16
     cp -f "$libpng_root/.libs/libpng16.a" "$2"
     cp -f "$libpng_root/png.h" "$2"
+    cp -f "$libpng_root/pnglibconf.h" "$2"
+    cp -f "$libpng_root/pngconf.h" "$2"
     return 0
 }
