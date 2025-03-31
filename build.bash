@@ -6,6 +6,20 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
+is_windows=0
+
+if [[ "$CYGWIN" || "$MSYSTEM" ]]; then
+    is_windows=1
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    ndk_osname=linux-x86_64
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    ndk_osname=darwin-x86_64
+else
+    ndk_osname=windows-x86_64
+fi
+
 ## utilities
 
 # function: download_file
@@ -31,7 +45,7 @@ download_file()
     cd $1
     echo "$4 $2" | sha256sum --check --status
     if [[ $? -ne "0" ]]; then
-        rm -rf $outfile
+        #rm -rf $outfile
         echo "SHA-256 verification failed for $2"
         return 1
     fi
@@ -54,11 +68,52 @@ run_unzip()
     return 0
 }
 
+# function: run_untar
+# argument 1: output directory
+# argument 2: filename to extract
+# argument 3: directory where the file is found
+# argument 4: extra args
+run_untar()
+{
+    tar -C "$1" -xf "$3/$2"
+    if [[ $? -ne "0" ]]; then
+        echo "Untar failed for $2"
+        return 1
+    fi
+    return 0
+}
+
+# function: run_ndkbuild
+# argument 1: ndk root path
+# argument 2: extra args
+run_ndkbuild()
+{
+    if [[ $is_windows -eq "1" ]]; then
+        new_ndk_path=$(cygpath -w "$1")
+        cmd //K "$new_ndk_path\\ndk-build.cmd" $2 \&\& exit
+        if [[ $? -ne "0" ]]; then
+            return 1
+        fi
+    else
+        "$1/ndk-build" $2
+        if [[ $? -ne "0" ]]; then
+            return 1
+        fi
+    fi
+    return 0
+}
+
+android_sdk=$ANDROID_SDK
+if type "cygpath" > /dev/null; then
+    android_sdk=$(cygpath -u "$ANDROID_SDK")
+fi
+
+android_ndk_bf=$android_sdk/ndk/21.0.6113669
 root_script_dir=${PWD}
 platform=$1
 arch=$2
 output_dir=$root_script_dir/$3
-libraries=(libcurl openssl libjpeg libpng libtiff libxml2 zlib)
+libraries=(libcurl openssl libjpeg zlib libxml2 libpng libtiff)
 
 for lib in "${libraries[@]}"
 do
@@ -78,6 +133,7 @@ do
 
         source $src_script
 
+        # argument 1: tarball dir
         download_dep $tar_dir
 
         if [[ $? -ne "0" ]]; then
@@ -85,10 +141,22 @@ do
         fi
 
         echo Extracting and building $lib...
+
+        # argument 1: tarball dir
+        # argument 2: build directory
         build_dep $tar_dir $build_dir
+        if [[ $? -ne "0" ]]; then
+            exit 1
+        fi
 
         echo Installing $lib...
+
+        # argument 1: build directory
+        # argument 2: output install directory
         install_dep $build_dir $output_dir
+        if [[ $? -ne "0" ]]; then
+            exit 1
+        fi
 
         touch $build_dir/.installed
     fi
