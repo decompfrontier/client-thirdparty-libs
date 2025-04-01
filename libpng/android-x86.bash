@@ -1,2 +1,2 @@
 target_arch=i686
-source ./libpng/android-common.bash
+source "$root_script_dir/libpng/android-common.bash"

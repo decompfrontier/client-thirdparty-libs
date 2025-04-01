@@ -12,7 +12,7 @@ This repository contains some simple scripts to build third party libraries for 
 | libtiff | ❓ |
 | libxml2 | ❓ |
 | openssl | ❌ (/Users/james/Project/cocos2d-x-3rd-party-libs-) |
-| zlib    | ❌ |
+| zlib    | ❓ |
 
 ## armeabi-v7a
 | Library | Match |
@@ -23,7 +23,7 @@ This repository contains some simple scripts to build third party libraries for 
 | libtiff | ❓ |
 | libxml2 | ❌ |
 | openssl | ❌ |
-| zlib    | ❌ |
+| zlib    | ❓ |
 
 ## x86_64
 | Library | Match |
@@ -34,7 +34,7 @@ This repository contains some simple scripts to build third party libraries for 
 | libtiff | ❓ |
 | libxml2 | ❓ |
 | openssl | ✅ |
-| zlib    | ❌ |
+| zlib    | ❓ |
 
 ## x86
 | Library | Match |
@@ -45,4 +45,4 @@ This repository contains some simple scripts to build third party libraries for 
 | libtiff | ❓ |
 | libxml2 | ❌ |
 | openssl | ❌ |
-| zlib    | ❌ |
+| zlib    | ❓ |

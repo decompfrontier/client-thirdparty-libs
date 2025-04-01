@@ -1,2 +1,2 @@
 target_diff=armeabi-v7a
-source ./libjpeg/android-common.bash
+source "$root_script_dir/libjpeg/android-common.bash"

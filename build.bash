@@ -10,6 +10,11 @@ is_windows=0
 
 if [[ "$CYGWIN" || "$MSYSTEM" ]]; then
     is_windows=1
+
+    if [[ $MSYSTEM == "MSYS" ]]; then
+        echo "Do not use an MSYS terminal! Please use a Mingw terminal"
+        exit 1
+    fi
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
