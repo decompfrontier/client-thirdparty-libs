@@ -1,2 +1,2 @@
-target_arch=arm64-v8a
+target_arch=armv7a
 source ./libpng/android-common.bash

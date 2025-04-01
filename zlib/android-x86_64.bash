@@ -1,2 +1,2 @@
-target_cc=aarch64
+target_cc=x86_64
 source ./zlib/android-common.bash

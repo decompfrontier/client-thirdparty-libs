@@ -1,3 +1,3 @@
-target_arch=arm64-v8a
+target_arch=x86_64
 target_lib=openssl
 source ./libcurl/android-common.bash

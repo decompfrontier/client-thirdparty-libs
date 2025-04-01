@@ -18,8 +18,8 @@ build_dep()
     cd "$2"
     ndk_root=$android_ndk_bf
     ndk_toolchain="$ndk_root/toolchains/llvm/prebuilt/$ndk_osname/bin"
-    ndk_cc="$ndk_toolchain/aarch64-linux-android21-clang"
-    CC=$ndk_cc ./autogen.sh --host=aarch64-linux-gnueabi --enable-static --disable-shared --without-iconv --without-lzma
+    ndk_cc="$ndk_toolchain/$ndk_target-linux-android21-clang"
+    CC=$ndk_cc ./autogen.sh --host=$ndk_target-linux-gnueabi --enable-static --disable-shared --without-iconv --without-lzma
     ret=$?
     cd $root_script_dir
 
